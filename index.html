@@ -14,14 +14,45 @@
 
 
     <script>
-        window.onload = init; //start doing JS if HTML file is loaded
-        let back,front ; //Define all global variable we need for now
+        window.onload = init; 
+        let back;
+        let front; 
 
     function init()
         {
         back = document.getElementById('back'); 
-        front = document.getElementById('front');
-        front.style.opacity = 0.7; //opacity range = 0..1  
+        front = document.getElementById('front'); 
+        fadeOut(front,3000);
+        }
+
+
+        function fadeOut(el, duration)
+        {
+            let s = el.style;
+            let step = 25/duration;
+            let factor = 1;
+            
+            function fade() 
+            {
+                if(s.opacity < 0 && factor == 1)
+                {
+                    console.log("1/2");
+                    factor = -1;
+                    setTimeout(fade, 25);
+                }
+                else if(s.opacity > 1 && factor == -1)
+                {
+                    console.log("2/2");
+                    factor = 1;
+                    fade();
+                }
+                else
+                {
+                    s.opacity = s.opacity - (step*factor)
+                    setTimeout(fade, 25);
+                }
+            }
+            fade();
         }
     </script>
 </body>
